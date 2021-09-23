@@ -37,7 +37,7 @@ public class Character {
         // now remove smallest val in array
 
         for (int i = 0; i < sumOfRolls.length; i++){
-            
+
         }
 
 
