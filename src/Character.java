@@ -42,7 +42,6 @@ public class Character {
         // We subtract the lowest dice roll before adding it back in to simulate discarding that roll.
         int sum = -lowestRoll;
         for (int dice : sumOfRolls){
-            System.out.print(dice);
             sum = sum + dice;
         }
         return sum;
