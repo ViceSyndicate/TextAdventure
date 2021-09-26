@@ -30,6 +30,12 @@ public class Character {
         agility = characterStatGenerator();
     }
 
+    public Character(String charName, int strength, int agility){
+        name = charName;
+        this.strength = strength;
+        this.agility = agility;
+    }
+
     // rolls 4 Six Sided die, ignores the lowest roll, and adds them together.
     // I could modify this function to accept optional values in case I want
     // to make orcs more likely to have extra strength for example.

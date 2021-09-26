@@ -8,8 +8,9 @@ public class GameStart {
         Weapon dagger = new Weapon("Dagger", 1,4);
         dagger.description = "Short Pointy Sword.";
 
-        Character enemy1 = new Character("BadGuy1");
-        Character enemy2 = new Character("BadGuy2");
+        
+        Character enemy1 = new Character("Mammoth", 24, 9);
+        Character enemy2 = new Character("Will-O'-Wisp", 5, 28);
 
         Room room1 = new Room("Entrance");
         room1.charArrayList.add(enemy1);
