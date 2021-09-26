@@ -4,6 +4,11 @@ public class GameStart {
         Character player = new Character("TestChar");
         System.out.println("Your Strength is: " + player.getStrength());
         System.out.println("Your Agility is: " + player.getAgility());
+
+        System.out.println(player.attack(1,4));
+        System.out.println(player.attack(1,4));
+        System.out.println(player.attack(1,4));
+        System.out.println(player.attack(1,4));
     }
 
     public void gameLoop(){
@@ -11,6 +16,6 @@ public class GameStart {
     }
 
     public void exitGame(){
-
+        System.exit(0);
     }
 }

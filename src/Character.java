@@ -6,7 +6,13 @@ public class Character {
     // Strength + HP + Strength Weapon Dmg
     // Agility + Dodge + Agile Weapon Dmg
 
-
+    // returns a random value between minAttackVal and maxAttackVal.
+    // Since we're working with dice the min value will always be 1, so I could
+    // write this code shorter but this is more flexible. So I'm keeping it just in case.
+    public int attack(int minAttackVal, int maxAttackVal){
+        int range = maxAttackVal - minAttackVal +1;
+        return (int)(Math.random() * range ) + minAttackVal;
+    }
 
     public int getAgility() {
         return agility;
