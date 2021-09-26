@@ -9,6 +9,8 @@ public class Character {
     // returns a random value between minAttackVal and maxAttackVal.
     // Since we're working with dice the min value will always be 1, so I could
     // write this code shorter but this is more flexible. So I'm keeping it just in case.
+    // An attack should also take a characters Strength or Agility in consideration
+    // So that value also needs to be considered.
     public int attack(int minAttackVal, int maxAttackVal){
         int range = maxAttackVal - minAttackVal +1;
         return (int)(Math.random() * range ) + minAttackVal;
@@ -29,6 +31,8 @@ public class Character {
     }
 
     // rolls 4 Six Sided die, ignores the lowest roll, and adds them together.
+    // I could modify this function to accept optional values in case I want
+    // to make orcs more likely to have extra strength for example.
     public int characterStatGenerator(){
 
         int[] sumOfRolls = new int[4];
