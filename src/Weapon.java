@@ -1,5 +1,4 @@
-public class Weapon {
-    String name;
+public class Weapon extends Item {
     int minDamage;
     int maxDamage;
 
@@ -10,7 +9,7 @@ public class Weapon {
     }
 
     public Weapon(String name, int minimumDamage, int maximumDamage){
-        name = name;
+        this.name = name;
         minDamage = minimumDamage;
         maxDamage = maximumDamage;
     }

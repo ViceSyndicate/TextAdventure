@@ -5,6 +5,9 @@ public class GameStart {
         System.out.println("Your Strength is: " + player.getStrength());
         System.out.println("Your Agility is: " + player.getAgility());
 
+        Weapon dagger = new Weapon("Dagger", 1,4);
+        dagger.description = "Short Pointy Sword.";
+
         Character enemy1 = new Character("BadGuy1");
         Character enemy2 = new Character("BadGuy2");
 
