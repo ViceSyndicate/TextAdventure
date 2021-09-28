@@ -3,6 +3,7 @@ public class Character {
     private int hp = 100;
     private int strength;
     private int agility;
+    private int[] position;
     // Strength + HP + Strength Weapon Dmg
     // Agility + Dodge + Agile Weapon Dmg
 
@@ -28,8 +29,12 @@ public class Character {
         name = charName;
         strength = characterStatGenerator();
         agility = characterStatGenerator();
+        int[]spawnCoordinates = {50, 50, 50};
+        this.position = spawnCoordinates;
     }
 
+    // If i store the enemies in a list in the room then I don't need to give them
+    // coordinates. Only the player needs those.
     public Character(String charName, int strength, int agility){
         name = charName;
         this.strength = strength;

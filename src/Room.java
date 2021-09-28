@@ -1,16 +1,30 @@
 import java.util.ArrayList;
 import java.util.List;
 
+enum doorsEnum {
+    NORTH,
+    EAST,
+    SOUTH,
+    WEST,
+    UP,
+    DOWN
+};
+
 public class Room {
     String name;
     String description;
-    public enum doors {NORTH, EAST, SOUTH, WEST}
+    int[] coordinates = new int[2];
+    public List<doorsEnum> paths = new ArrayList<doorsEnum>();
 
-    // It seems a List is more suitable but keeping ArrayList for learning purposes.
+    // Add other lists of different items later.
+    Weapon[] weaponsInRoom;
+
     ArrayList charArrayList = new ArrayList<>();
-    List<Character> charList = new ArrayList<>();
 
-    public Room (String name){
+
+    public Room (String name, List<doorsEnum> paths, int[] coordinates){
         this.name = name; // Is this bad practice? to name the ctor var the same as the rooms name.
+        this.paths = paths;
+        this.coordinates = coordinates;
     }
 }

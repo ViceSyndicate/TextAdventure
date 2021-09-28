@@ -18,17 +18,31 @@ public class GameStart {
         Weapon mace = new Weapon("Mace",1, 6);
         mace.description = "Bonk em with this";
 
+        int[] spawnPosition = {51, 50, 50};
         Character enemy1 = new Character("Mammoth", 24, 9);
         Character enemy2 = new Character("Will-O'-Wisp", 5, 28);
 
-        Room room1 = new Room("Entrance");
-        roomList.add(room1);
+        int[] coordinates = {50, 50, 50};
+        List<doorsEnum> roomDoors = new ArrayList<doorsEnum>();
+        roomDoors.add(doorsEnum.NORTH);
+        Room spawnRoom = new Room("Entrance", roomDoors, coordinates);
 
-        room1.charArrayList.add(enemy1);
-        room1.charArrayList.add(enemy2);
+        // Clear the doors and change x coordinates of this room.
+        roomDoors.clear();
+        roomDoors.add(doorsEnum.NORTH);
+        roomDoors.add(doorsEnum.EAST);
+        roomDoors.add(doorsEnum.WEST);
+        coordinates[0]++;
+        Room room2 = new Room("Tunnel", roomDoors, coordinates);
 
-        room1.charList.add(enemy1);
-        room1.charList.add(enemy2);
+        roomList.add(spawnRoom);
+        roomList.add(room2);
+
+
+        spawnRoom.charArrayList.add(enemy1);
+        spawnRoom.charArrayList.add(enemy2);
+
+
 
         gameLoop();
     }
