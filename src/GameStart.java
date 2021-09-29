@@ -76,6 +76,12 @@ public class GameStart {
             if (commandParts[i].contains("exit") || commandParts[i].contains("quit")){
                 exitGame();
             }
+            if(commandParts[i].contains("help")) {
+                System.out.println("1. Go + North, East, South, West, Up & Down");
+                System.out.println("To enter another room.");
+                System.out.println("Attack to attack using the weapon you have equipped.");
+                System.out.println("quit or exit to close the game down.");
+            }
         }
     }
 
