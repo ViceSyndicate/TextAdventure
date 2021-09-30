@@ -17,6 +17,10 @@ public class Character {
         return (int)(Math.random() * range ) + minAttackVal;
     }
 
+    public void takeDamage(int damage){
+        this.hp = this.hp - damage;
+    }
+
     public int getAgility() {
         return agility;
     }
