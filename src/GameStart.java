@@ -1,7 +1,6 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Scanner;
+import Items.Weapon;
+
+import java.util.*;
 
 public class GameStart {
 
@@ -14,9 +13,9 @@ public class GameStart {
         System.out.println("Your Agility is: " + player.getAgility());
 
         Weapon dagger = new Weapon("Dagger", 1,4);
-        dagger.description = "Short Pointy Sword.";
+        dagger.setDescription("Short Pointy Sword.");
         Weapon mace = new Weapon("Mace",1, 6);
-        mace.description = "Bonk em with this";
+        mace.setDescription("Bonk em with this");
 
         int[] spawnPosition = {51, 50, 50};
         Character enemy1 = new Character("Mammoth", 24, 9);
@@ -38,11 +37,8 @@ public class GameStart {
         roomList.add(spawnRoom);
         roomList.add(room2);
 
-
         spawnRoom.charArrayList.add(enemy1);
         spawnRoom.charArrayList.add(enemy2);
-
-
 
         gameLoop();
     }

@@ -4,8 +4,8 @@ public class Character {
     private int strength;
     private int agility;
     private int[] position;
-    // Strength + HP + Strength Weapon Dmg
-    // Agility + Dodge + Agile Weapon Dmg
+    // Strength + HP + Strength Items.Weapon Dmg
+    // Agility + Dodge + Agile Items.Weapon Dmg
 
     // returns a random value between minAttackVal and maxAttackVal.
     // Since we're working with dice the min value will always be 1, so I could

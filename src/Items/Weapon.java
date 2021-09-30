@@ -1,3 +1,7 @@
+package Items;
+
+import Items.Item;
+
 public class Weapon extends Item {
     int minDamage;
     int maxDamage;

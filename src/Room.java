@@ -1,3 +1,6 @@
+import Items.Item;
+import Items.Weapon;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +20,7 @@ public class Room {
     public List<doorsEnum> paths = new ArrayList<doorsEnum>();
 
     // Add other lists of different items later.
-    Weapon[] weaponsInRoom;
+    Item[] itemsInRoom;
 
     ArrayList charArrayList = new ArrayList<>();
 
