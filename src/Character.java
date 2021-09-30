@@ -29,12 +29,20 @@ public class Character {
         return strength;
     }
 
+    public int[] getPosition() {
+        return position;
+    }
+
+    public void setPosition(int[] position) {
+        this.position = position;
+    }
+
     public Character(String charName){
         name = charName;
         strength = characterStatGenerator();
         agility = characterStatGenerator();
-        int[]spawnCoordinates = {50, 50, 50};
-        this.position = spawnCoordinates;
+        int[]coordinate = {50, 50, 50};
+        this.position = coordinate;
     }
 
     // If i store the enemies in a list in the room then I don't need to give them
