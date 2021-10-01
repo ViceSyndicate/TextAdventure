@@ -47,6 +47,7 @@ public class GameStart {
 
     public void gameLoop(Character player, ArrayList<Room> roomList){
 
+        Room currentRoom = roomList.get(0);
         System.out.println("You wake up in a dimly lit cave");
         System.out.println("You can interact with this game using text commands.");
         System.out.println("Write 'help' for some commands");
@@ -63,12 +64,19 @@ public class GameStart {
                 if (commandParts[i].contains("go") && commandParts.length > i+1 ){
                     switch (commandParts[i++]) {
                         case "north":
-
-                            int[] newCoordinates = player.getPosition();
-                            newCoordinates[0] ++;
+                            if (currentRoom.isValidDirection(player, roomList)){
+                                int[] newCoordinates = player.getPosition();
+                                //roomList.get(0);
+                                newCoordinates[0] ++;
+                            }
                         case "east":
                             System.out.println("second word should be east");
                         case "south":
+                            if (currentRoom.isValidDirection(player, roomList)){
+                                int[] newCoordinates = player.getPosition();
+                                //roomList.get(0);
+                                newCoordinates[0] --;
+                            }
                             System.out.println("second word should be south");
                         case "west":
                             System.out.println("second word should be west");

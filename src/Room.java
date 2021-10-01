@@ -21,7 +21,7 @@ public class Room {
     // varje rum hanterar sina egna dörrar och när spelaren vill gå ngt håll
     // Så frågar main klassen om det finns en dörr i direktionen spelaren vill gå.
 
-    public Room getRoomByPlayerPosition(Character player, Room[] allRooms){
+    public Room getRoomByPlayerPosition(Character player, List<Room> allRooms){
         Room currentRoom;
         // look through all the rooms
         for (Room room : allRooms) {
@@ -34,18 +34,16 @@ public class Room {
             }
         }
         // Player is out of bounds. Return the first room in roomArrayList
-        return allRooms[0];
+        return allRooms.get(0);
     }
 
-    public boolean isValidDirection(Character player, doorsEnum direction){
+    public boolean isValidDirection(Character player, List<Room> roomList){
+        Room currentRoom = getRoomByPlayerPosition(player, roomList);
 
         for (int i = 0; i < player.getPosition().length; i++){
 
         }
-
-        System.out.println("You try to go" + direction);
-
-
+        System.out.println("You try to go");
             // needs to track if there are adjacent rooms.
             return false;
     }
