@@ -62,7 +62,7 @@ public class GameStart {
 
             for (int i = 0; i < commandParts.length; i++){
                 if (commandParts[i].contains("go") && commandParts.length > i+1 ){
-                    switch (commandParts[i++]) {
+                    switch (commandParts[1]) {
                         case "north":
                             if (currentRoom.isValidDirection(player, roomList)){
                                 int[] newCoordinates = player.getPosition();
@@ -84,17 +84,19 @@ public class GameStart {
                             System.out.println("there was no landmark direction after 'go'");
                     }
                 }
-                if (commandParts[i].contains("exit") || commandParts[i].contains("quit")){
+                if (commandParts[0].contains("exit") || commandParts[i].contains("quit")){
                     exitGame();
                 }
-                if(commandParts[i].contains("help")) {
-                    System.out.println("1. Go + North, East, South, West, Up & Down");
-                    System.out.println("To enter another room.");
+                if(commandParts[0].contains("help")) {
+                    System.out.print("1. Go + North, East, South, West, Up & Down To enter another room.");
                     System.out.println("Attack to attack using the weapon you have equipped.");
-                    System.out.println("quit or exit to close the game down.");
+                    System.out.println("Quit or Exit to close the game down.");
                 }
                 if (commandParts[0].contains("look")){
-
+                    currentRoom = currentRoom.getRoomByPlayerPosition(player, roomList);
+                    // This seems hacky, currentRoom calls its own function with itself.
+                    // Is this bad practice?
+                    currentRoom.lookAroundRoom(currentRoom);
                 }
             }
         }

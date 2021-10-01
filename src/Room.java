@@ -21,6 +21,15 @@ public class Room {
     // varje rum hanterar sina egna dörrar och när spelaren vill gå ngt håll
     // Så frågar main klassen om det finns en dörr i direktionen spelaren vill gå.
 
+    public void lookAroundRoom(Room room){
+        System.out.println("It looks like you're in a " + room.name);
+        System.out.println(room.description);
+        System.out.print("There are " + doorsInRoom.size() + "Paths. ");
+        for (doorsEnum paths : doorsInRoom){
+            System.out.print(paths + ", ");
+        }
+    }
+
     public Room getRoomByPlayerPosition(Character player, List<Room> allRooms){
         Room currentRoom;
         // look through all the rooms
