@@ -33,6 +33,18 @@ public class Character {
         return position;
     }
 
+    public int getXCoordinate(){
+        return position[0];
+    }
+
+    public int getYCoordinate(){
+        return position[1];
+    }
+
+    public int getZCoordinate(){
+        return position[3];
+    }
+
     public void setPosition(int[] position) {
         this.position = position;
     }

@@ -42,10 +42,10 @@ public class GameStart {
         spawnRoom.charArrayList.add(enemy1);
         spawnRoom.charArrayList.add(enemy2);
 
-        gameLoop(player);
+        gameLoop(player, roomList);
     }
 
-    public void gameLoop(Character player){
+    public void gameLoop(Character player, ArrayList<Room> roomList){
 
         System.out.println("You wake up in a dimly lit cave");
         System.out.println("You can interact with this game using text commands.");
@@ -63,8 +63,7 @@ public class GameStart {
                 if (commandParts[i].contains("go") && commandParts.length > i+1 ){
                     switch (commandParts[i++]) {
                         case "north":
-                            // check if there's a door there
-                            System.out.println("second word should be north");
+
                             int[] newCoordinates = player.getPosition();
                             newCoordinates[0] ++;
                         case "east":
@@ -87,19 +86,11 @@ public class GameStart {
                     System.out.println("quit or exit to close the game down.");
                 }
                 if (commandParts[0].contains("look")){
-                    for (int x = 0; i < roomList.size(); i++){
-                        // need to check all 3 values in the array.. this is getting absurd. Ask if there's a better way.
-                        if (roomList.get(x).getPosition()[0] == player.getPosition()[0]){
-                            System.out.println(roomList.get(x).description);
-                        } else {
-                            System.out.println("It seems there is no description for this room...");
-                        }
-                    }
+
                 }
             }
         }
     }
-
     public void exitGame(){
         System.exit(0);
     }
