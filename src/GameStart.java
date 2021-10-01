@@ -24,7 +24,8 @@ public class GameStart {
         int[] roomCoordinates = {50, 50, 50};
         List<doorsEnum> roomDoors = new ArrayList<doorsEnum>();
         roomDoors.add(doorsEnum.NORTH);
-        Room spawnRoom = new Room("Entrance", roomDoors, roomCoordinates);
+        Room entrance = new Room("Entrance", roomDoors, roomCoordinates);
+        roomList.add(entrance);
 
         // Clear the doors and change x coordinates of this room.
         roomDoors.clear();
@@ -33,14 +34,18 @@ public class GameStart {
         roomDoors.add(doorsEnum.WEST);
         roomCoordinates[0]++;
 
-        Room room2 = new Room("Cave", roomDoors, roomCoordinates);
-        Room room1 = new Room("Tunnel", roomDoors, roomCoordinates);
 
-        roomList.add(spawnRoom);
-        roomList.add(room1);
+        Room tunnel = new Room("Tunnel", roomDoors, roomCoordinates);
+        roomList.add(tunnel);
+        roomDoors.add(doorsEnum.EAST);
 
-        spawnRoom.charArrayList.add(enemy1);
-        spawnRoom.charArrayList.add(enemy2);
+
+
+        Room cave = new Room("Cave", roomDoors, roomCoordinates);
+        cave.charArrayList.add(enemy1);
+        cave.charArrayList.add(enemy2);
+        roomList.add(cave);
+
 
         gameLoop(player, roomList);
     }
@@ -64,22 +69,31 @@ public class GameStart {
                 if (commandParts[i].contains("go") && commandParts.length > i+1 ){
                     switch (commandParts[1]) {
                         case "north":
-                            if (currentRoom.isValidDirection(player, roomList)){
+                            if (currentRoom.isValidDirection(player, roomList, doorsEnum.NORTH)){
+
+                                System.out.println(player.getPosition()[0]);
+                                System.out.println(currentRoom.getPosition()[0]);
+
                                 int[] newCoordinates = player.getPosition();
-                                //roomList.get(0);
-                                newCoordinates[0] ++;
+                                newCoordinates[0] = newCoordinates[0]+1;
+                                player.setPosition(newCoordinates);
+                                currentRoom.position[0] = currentRoom.position[0]+1;
                             }
+                            break;
                         case "east":
                             System.out.println("second word should be east");
+                            break;
                         case "south":
-                            if (currentRoom.isValidDirection(player, roomList)){
+                            if (currentRoom.isValidDirection(player, roomList, doorsEnum.SOUTH)){
                                 int[] newCoordinates = player.getPosition();
-                                //roomList.get(0);
-                                newCoordinates[0] --;
+                                newCoordinates[0] = newCoordinates[0]-1;
+                                player.setPosition(newCoordinates);
+                                currentRoom.position[0] = currentRoom.position[0]-1;
                             }
-                            System.out.println("second word should be south");
+                            break;
                         case "west":
                             System.out.println("second word should be west");
+                            break;
                         default:
                             System.out.println("there was no landmark direction after 'go'");
                     }

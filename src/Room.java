@@ -24,7 +24,7 @@ public class Room {
     public void lookAroundRoom(Room room){
         System.out.println("It looks like you're in a " + room.name);
         System.out.println(room.description);
-        System.out.print("There are " + doorsInRoom.size() + "Paths. ");
+        System.out.print("There are " + doorsInRoom.size() + " paths. ");
         for (doorsEnum paths : doorsInRoom){
             System.out.print(paths + ", ");
         }
@@ -46,15 +46,16 @@ public class Room {
         return allRooms.get(0);
     }
 
-    public boolean isValidDirection(Character player, List<Room> roomList){
+    public boolean isValidDirection(Character player, List<Room> roomList, doorsEnum direction){
         Room currentRoom = getRoomByPlayerPosition(player, roomList);
-
-        for (int i = 0; i < player.getPosition().length; i++){
-
+        for (doorsEnum pathsFromRoom : currentRoom.doorsInRoom){
+            if (direction == pathsFromRoom){
+                System.out.println("You go " + direction);
+                return true;
+            }
         }
-        System.out.println("You try to go");
-            // needs to track if there are adjacent rooms.
-            return false;
+        System.out.println("You try to go " + direction + " but there's no path in that direction.");
+        return false;
     }
 
     // Add other lists of different items later.
