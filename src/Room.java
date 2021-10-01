@@ -22,10 +22,19 @@ public class Room {
     // Så frågar main klassen om det finns en dörr i direktionen spelaren vill gå.
 
     public Room getRoomByPlayerPosition(Character player, Room[] allRooms){
-        for (Room room : allRooms) {
-            if (room.position[0] == )
-        }
         Room currentRoom;
+        // look through all the rooms
+        for (Room room : allRooms) {
+            // if you find a room with the same coordinates as the player
+            if (room.position[0] == player.position[0] &&
+                    room.position[1] == player.position[1] &&
+                        room.position[2] == player.position[2]){
+                currentRoom = room;
+                return currentRoom;
+            }
+        }
+        // Player is out of bounds. Return the first room in roomArrayList
+        return allRooms[0];
     }
 
     public boolean isValidDirection(Character player, doorsEnum direction){

@@ -3,7 +3,7 @@ public class Character {
     private int hp = 100;
     private int strength;
     private int agility;
-    private int[] position;
+    public int[] position;
     // Strength + HP + Strength Items.Weapon Dmg
     // Agility + Dodge + Agile Items.Weapon Dmg
 
