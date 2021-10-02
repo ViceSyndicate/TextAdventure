@@ -15,8 +15,10 @@ enum doorsEnum {
 public class Room {
     String name;
     String description;
-    int[] position = new int[3];
+    protected int[] position = new int[3];
     public List<doorsEnum> doorsInRoom = new ArrayList<doorsEnum>();
+    Item[] itemsInRoom;
+    ArrayList charArrayList = new ArrayList<>();
 
     // varje rum hanterar sina egna dörrar och när spelaren vill gå ngt håll
     // Så frågar main klassen om det finns en dörr i direktionen spelaren vill gå.
@@ -57,11 +59,6 @@ public class Room {
         System.out.println("You try to go " + direction + " but there's no path in that direction.");
         return false;
     }
-
-    // Add other lists of different items later.
-    Item[] itemsInRoom;
-
-    ArrayList charArrayList = new ArrayList<>();
 
     public int[] getPosition() {
         return position;

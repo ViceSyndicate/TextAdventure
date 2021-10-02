@@ -8,40 +8,47 @@ public class GameStart {
 
     public void initialization(){
 
+        // Make a character and print stats
         Character player = new Character("TestChar");
         System.out.println("Your Strength is: " + player.getStrength());
         System.out.println("Your Agility is: " + player.getAgility());
 
+        // Make some weapons
         Weapon dagger = new Weapon("Dagger", 1,4);
         dagger.setDescription("Short Pointy Sword.");
         Weapon mace = new Weapon("Mace",1, 6);
         mace.setDescription("Bonk em with this");
 
+        // Make some enemies
         int[] monsterSpawnCoordinates = {51, 50, 50};
         Character enemy1 = new Character("Mammoth", 24, 9);
         Character enemy2 = new Character("Will-O'-Wisp", 5, 28);
 
-        int[] roomCoordinates = {50, 50, 50};
+        // Create doors enum for use in roomCreation
         List<doorsEnum> roomDoors = new ArrayList<doorsEnum>();
+        // add a door to the north in the arrayList of doors.
         roomDoors.add(doorsEnum.NORTH);
-        Room entrance = new Room("Entrance", roomDoors, roomCoordinates);
+        // Create spawn Coordinates
+        int[] spawnCoordinates = {50, 50, 50};
+        // This Entrance room should have 1 door to the north and the coordinates above.
+        Room entrance = new Room("Entrance", roomDoors, spawnCoordinates);
         roomList.add(entrance);
 
-        // Clear the doors and change x coordinates of this room.
+        // Clear the doors and change X coordinates to create a new room to the north.
+        spawnCoordinates[0]++;
         roomDoors.clear();
-        roomDoors.add(doorsEnum.NORTH);
+        // create only 1 door to the east
         roomDoors.add(doorsEnum.EAST);
-        roomDoors.add(doorsEnum.WEST);
-        roomCoordinates[0]++;
-
-
-        Room tunnel = new Room("Tunnel", roomDoors, roomCoordinates);
+        Room tunnel = new Room("Tunnel", roomDoors, spawnCoordinates);
         roomList.add(tunnel);
+
+        // set Y Coordinate to +1
+        spawnCoordinates[1]++;
+        roomDoors.clear();
         roomDoors.add(doorsEnum.EAST);
+        Room cave = new Room("Cave", roomDoors, spawnCoordinates);
 
-
-
-        Room cave = new Room("Cave", roomDoors, roomCoordinates);
+        // Add some enemies to the Cave
         cave.charArrayList.add(enemy1);
         cave.charArrayList.add(enemy2);
         roomList.add(cave);
@@ -77,7 +84,7 @@ public class GameStart {
                                 int[] newCoordinates = player.getPosition();
                                 newCoordinates[0] = newCoordinates[0]+1;
                                 player.setPosition(newCoordinates);
-                                currentRoom.position[0] = currentRoom.position[0]+1;
+                                currentRoom = currentRoom.getRoomByPlayerPosition(player, roomList);
                             }
                             break;
                         case "east":
@@ -88,7 +95,7 @@ public class GameStart {
                                 int[] newCoordinates = player.getPosition();
                                 newCoordinates[0] = newCoordinates[0]-1;
                                 player.setPosition(newCoordinates);
-                                currentRoom.position[0] = currentRoom.position[0]-1;
+                                currentRoom = currentRoom.getRoomByPlayerPosition(player, roomList);
                             }
                             break;
                         case "west":
@@ -107,7 +114,7 @@ public class GameStart {
                     System.out.println("Quit or Exit to close the game down.");
                 }
                 if (commandParts[0].contains("look")){
-                    currentRoom = currentRoom.getRoomByPlayerPosition(player, roomList);
+                    // currentRoom = currentRoom.getRoomByPlayerPosition(player, roomList);
                     // This seems hacky, currentRoom calls its own function with itself.
                     // Is this bad practice?
                     currentRoom.lookAroundRoom(currentRoom);
