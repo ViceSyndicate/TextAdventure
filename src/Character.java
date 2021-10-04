@@ -1,9 +1,13 @@
+import Items.ItemContainer;
+import Items.Weapon;
+
 public class Character {
     private String name;
     private int hp = 100;
     private int strength;
     private int agility;
     public int[] position;
+    ItemContainer bag = new ItemContainer("Backpack", 10);
     // Strength + HP + Strength Items.Weapon Dmg
     // Agility + Dodge + Agile Items.Weapon Dmg
 
@@ -53,6 +57,11 @@ public class Character {
         name = charName;
         strength = characterStatGenerator();
         agility = characterStatGenerator();
+        // Spawn player with a 10 slot bag.
+        ItemContainer bag = new ItemContainer("Backpack", 10);
+        Weapon startingWeapon = new Weapon("Dagger", 1, 4);
+        startingWeapon.setDescription("Sharp, Short and Pointy");
+        bag.addItemToContainer(startingWeapon);
         int[]coordinate = {50, 50, 50};
         this.position = coordinate;
     }

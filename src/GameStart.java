@@ -1,3 +1,4 @@
+import Items.Item;
 import Items.Weapon;
 
 import java.util.*;
@@ -18,6 +19,7 @@ public class GameStart {
         dagger.setDescription("Short Pointy Sword.");
         Weapon mace = new Weapon("Mace",1, 6);
         mace.setDescription("Bonk em with this");
+        player.bag.container.add(dagger);
 
         // Make some enemies
         int[] monsterSpawnCoordinates = {51, 50, 50};
@@ -31,7 +33,7 @@ public class GameStart {
         // Create spawn Coordinates
         int[] spawnCoordinates = {50, 50, 50};
         // This Entrance room should have 1 door to the north and the coordinates above.
-        Room entrance = new Room("Entrance", roomDoors, spawnCoordinates);
+        final Room entrance = new Room("Entrance", roomDoors, spawnCoordinates);
         roomList.add(entrance);
 
         // Clear the doors and change X coordinates to create a new room to the north.
@@ -39,14 +41,15 @@ public class GameStart {
         roomDoors.clear();
         // create only 1 door to the east
         roomDoors.add(doorsEnum.EAST);
-        Room tunnel = new Room("Tunnel", roomDoors, spawnCoordinates);
+        final Room tunnel = new Room("Tunnel", roomDoors, spawnCoordinates);
         roomList.add(tunnel);
 
         // set Y Coordinate to +1
         spawnCoordinates[1]++;
         roomDoors.clear();
         roomDoors.add(doorsEnum.EAST);
-        Room cave = new Room("Cave", roomDoors, spawnCoordinates);
+        final Room cave = new Room("Cave", roomDoors, spawnCoordinates);
+        cave.itemsInRoom.add(mace);
 
         // Add some enemies to the Cave
         cave.charArrayList.add(enemy1);
@@ -118,6 +121,20 @@ public class GameStart {
                     // This seems hacky, currentRoom calls its own function with itself.
                     // Is this bad practice?
                     currentRoom.lookAroundRoom(currentRoom);
+                }
+                if (commandParts[0].contains("take")){
+                    for ( Item item : currentRoom.itemsInRoom) {
+                        if (commandParts[1].contains(item.getName())){
+                            player.bag.addItemToContainer(item);
+                        }
+                    }
+                }
+                if (commandParts[0].contains("inventory")){
+                    System.out.println("Your bag Contains");
+                    System.out.println("---------------------------");
+                    for (int x = 0; x < player.bag.container.size(); x++){
+                        System.out.println(player.bag.container.get(x).getName());
+                    }
                 }
             }
         }

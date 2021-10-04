@@ -17,8 +17,8 @@ public class Room {
     String description;
     protected int[] position = new int[3];
     public List<doorsEnum> doorsInRoom = new ArrayList<doorsEnum>();
-    Item[] itemsInRoom;
-    ArrayList charArrayList = new ArrayList<>();
+    ArrayList<Item> itemsInRoom = new ArrayList<>();
+    ArrayList charArrayList = new ArrayList<Character>();
 
     // varje rum hanterar sina egna dörrar och när spelaren vill gå ngt håll
     // Så frågar main klassen om det finns en dörr i direktionen spelaren vill gå.
