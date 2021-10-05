@@ -9,10 +9,13 @@ public class GameStart {
 
     public void initialization(){
 
-        // Make a character and print stats
-        Character player = new Character("TestChar");
+        // Make a character and set spawnPosition
+        Position playerPosition = new Position(50, 50, 50);
+        Character player = new Character("TestCharacter", playerPosition);
         System.out.println("Your Strength is: " + player.getStrength());
         System.out.println("Your Agility is: " + player.getAgility());
+
+
 
         // Make some weapons
         Weapon dagger = new Weapon("Dagger", 1,4);
@@ -21,34 +24,36 @@ public class GameStart {
         mace.setDescription("Bonk em with this");
         player.bag.container.add(dagger);
 
+
+
         // Make some enemies
-        int[] monsterSpawnCoordinates = {51, 50, 50};
-        Character enemy1 = new Character("Mammoth", 24, 9);
-        Character enemy2 = new Character("Will-O'-Wisp", 5, 28);
+        Position monsterSpawnCoordinates = new Position(51, 50, 50);
+        Character enemy1 = new Character("Mammoth", 24, 9, monsterSpawnCoordinates);
+        Character enemy2 = new Character("Will-O'-Wisp", 5, 28, monsterSpawnCoordinates);
+
+
 
         // Create doors enum for use in roomCreation
         List<doorsEnum> roomDoors = new ArrayList<doorsEnum>();
         // add a door to the north in the arrayList of doors.
         roomDoors.add(doorsEnum.NORTH);
         // Create spawn Coordinates
-        int[] spawnCoordinates = {50, 50, 50};
+        Position roomCoordinates = new Position(50, 50, 50);
         // This Entrance room should have 1 door to the north and the coordinates above.
-        final Room entrance = new Room("Entrance", roomDoors, spawnCoordinates);
+        final Room entrance = new Room("Entrance", roomDoors, roomCoordinates);
         roomList.add(entrance);
 
         // Clear the doors and change X coordinates to create a new room to the north.
-        spawnCoordinates[0]++;
+        roomCoordinates.x++;
         roomDoors.clear();
         // create only 1 door to the east
         roomDoors.add(doorsEnum.EAST);
-        final Room tunnel = new Room("Tunnel", roomDoors, spawnCoordinates);
+        final Room tunnel = new Room("Tunnel", roomDoors, roomCoordinates);
         roomList.add(tunnel);
 
         // set Y Coordinate to +1
-        spawnCoordinates[1]++;
-        roomDoors.clear();
-        roomDoors.add(doorsEnum.EAST);
-        final Room cave = new Room("Cave", roomDoors, spawnCoordinates);
+        roomCoordinates.y++;
+        final Room cave = new Room("Cave", roomDoors, roomCoordinates);
         cave.itemsInRoom.add(mace);
 
         // Add some enemies to the Cave
@@ -80,14 +85,9 @@ public class GameStart {
                     switch (commandParts[1]) {
                         case "north":
                             if (currentRoom.isValidDirection(player, roomList, doorsEnum.NORTH)){
-
-                                System.out.println(player.getPosition()[0]);
-                                System.out.println(currentRoom.getPosition().x);
-
-                                int[] newCoordinates = player.getPosition();
-                                newCoordinates[0] = newCoordinates[0]+1;
-                                player.setPosition(newCoordinates);
+                                player.position.x ++;
                                 currentRoom = currentRoom.getRoomByPlayerPosition(player, roomList);
+                                System.out.println("You go North");
                             }
                             break;
                         case "east":
@@ -95,10 +95,9 @@ public class GameStart {
                             break;
                         case "south":
                             if (currentRoom.isValidDirection(player, roomList, doorsEnum.SOUTH)){
-                                int[] newCoordinates = player.getPosition();
-                                newCoordinates[0] = newCoordinates[0]-1;
-                                player.setPosition(newCoordinates);
+                                player.position.x --;
                                 currentRoom = currentRoom.getRoomByPlayerPosition(player, roomList);
+                                System.out.println("You go South");
                             }
                             break;
                         case "west":

@@ -38,9 +38,9 @@ public class Room {
         // look through all the rooms
         for (Room room : allRooms) {
             // if you find a room with the same coordinates as the player
-            if (room.position[0] == player.position[0] &&
-                    room.position[1] == player.position[1] &&
-                        room.position[2] == player.position[2]){
+            if (room.position.x == player.position.x &&
+                    room.position.y == player.position.y &&
+                        room.position.z == player.position.z){
                 currentRoom = room;
                 return currentRoom;
             }
@@ -67,7 +67,8 @@ public class Room {
 
     public Room (String name, List<doorsEnum> paths, Position position){
         this.name = name; // Is this bad practice? to name the ctor var the same as the rooms name.
-        this.doorsInRoom = paths;
+        this.doorsInRoom = new ArrayList<>(paths);
+        // this.doorsInRoom = paths;
         this.position = new Position(position);
     }
 }

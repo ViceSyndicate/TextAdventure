@@ -34,23 +34,11 @@ public class Character {
         return strength;
     }
 
-    public int[] getPosition() {
+    public Position getPosition() {
         return position;
     }
 
-    public int getXCoordinate(){
-        return position[0];
-    }
-
-    public int getYCoordinate(){
-        return position[1];
-    }
-
-    public int getZCoordinate(){
-        return position[3];
-    }
-
-    public void setPosition(int[] position) {
+    public void setPosition(Position position) {
         this.position = position;
     }
 
@@ -63,7 +51,7 @@ public class Character {
         Weapon startingWeapon = new Weapon("Dagger", 1, 4);
         startingWeapon.setDescription("Sharp, Short and Pointy");
         bag.addItemToContainer(startingWeapon);
-        this.position = position;
+        this.position = new Position(position);
     }
 
     // If i store the enemies in a list in the room then I don't need to give them
