@@ -82,7 +82,7 @@ public class GameStart {
                             if (currentRoom.isValidDirection(player, roomList, doorsEnum.NORTH)){
 
                                 System.out.println(player.getPosition()[0]);
-                                System.out.println(currentRoom.getPosition()[0]);
+                                System.out.println(currentRoom.getPosition().x);
 
                                 int[] newCoordinates = player.getPosition();
                                 newCoordinates[0] = newCoordinates[0]+1;

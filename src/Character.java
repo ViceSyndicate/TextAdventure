@@ -6,7 +6,8 @@ public class Character {
     private int hp = 100;
     private int strength;
     private int agility;
-    public int[] position;
+    //public int[] position;
+    public Position position;
     ItemContainer bag = new ItemContainer("Backpack", 10);
     // Strength + HP + Strength Items.Weapon Dmg
     // Agility + Dodge + Agile Items.Weapon Dmg
@@ -53,7 +54,7 @@ public class Character {
         this.position = position;
     }
 
-    public Character(String charName){
+    public Character(String charName, Position position){
         name = charName;
         strength = characterStatGenerator();
         agility = characterStatGenerator();
@@ -62,16 +63,16 @@ public class Character {
         Weapon startingWeapon = new Weapon("Dagger", 1, 4);
         startingWeapon.setDescription("Sharp, Short and Pointy");
         bag.addItemToContainer(startingWeapon);
-        int[]coordinate = {50, 50, 50};
-        this.position = coordinate;
+        this.position = position;
     }
 
     // If i store the enemies in a list in the room then I don't need to give them
     // coordinates. Only the player needs those.
-    public Character(String charName, int strength, int agility){
+    public Character(String charName, int strength, int agility, Position position){
         name = charName;
         this.strength = strength;
         this.agility = agility;
+        this.position = position;
     }
 
     // rolls 4 Six Sided die, ignores the lowest roll, and adds them together.

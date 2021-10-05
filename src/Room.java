@@ -15,7 +15,8 @@ enum doorsEnum {
 public class Room {
     String name;
     String description;
-    protected int[] position = new int[3];
+    // protected int[] position = new int[3];
+    protected Position position;
     public List<doorsEnum> doorsInRoom = new ArrayList<doorsEnum>();
     ArrayList<Item> itemsInRoom = new ArrayList<>();
     ArrayList charArrayList = new ArrayList<Character>();
@@ -60,13 +61,13 @@ public class Room {
         return false;
     }
 
-    public int[] getPosition() {
+    public Position getPosition() {
         return position;
     }
 
-    public Room (String name, List<doorsEnum> paths, int[] position){
+    public Room (String name, List<doorsEnum> paths, Position position){
         this.name = name; // Is this bad practice? to name the ctor var the same as the rooms name.
         this.doorsInRoom = paths;
-        this.position = position;
+        this.position = new Position(position);
     }
 }
