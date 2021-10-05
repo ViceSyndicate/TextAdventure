@@ -40,8 +40,8 @@ public class GameStart {
         // Create spawn Coordinates
         Position roomCoordinates = new Position(50, 50, 50);
         // This Entrance room should have 1 door to the north and the coordinates above.
-        final Room entrance = new Room("Entrance", roomDoors, roomCoordinates);
-        roomList.add(entrance);
+        final Room spawn = new Room("Cave", roomDoors, roomCoordinates);
+        roomList.add(spawn);
 
         // Clear the doors and change X coordinates to create a new room to the north.
         roomCoordinates.x++;
@@ -53,14 +53,13 @@ public class GameStart {
 
         // set Y Coordinate to +1
         roomCoordinates.y++;
-        final Room cave = new Room("Cave", roomDoors, roomCoordinates);
-        cave.itemsInRoom.add(mace);
+        final Room bigCave = new Room("Big Cave", roomDoors, roomCoordinates);
+        bigCave.itemsInRoom.add(mace);
 
         // Add some enemies to the Cave
-        cave.charArrayList.add(enemy1);
-        cave.charArrayList.add(enemy2);
-        roomList.add(cave);
-
+        bigCave.charArrayList.add(enemy1);
+        bigCave.charArrayList.add(enemy2);
+        roomList.add(bigCave);
 
         gameLoop(player, roomList);
     }
@@ -87,21 +86,25 @@ public class GameStart {
                             if (currentRoom.isValidDirection(player, roomList, doorsEnum.NORTH)){
                                 player.position.x ++;
                                 currentRoom = currentRoom.getRoomByPlayerPosition(player, roomList);
-                                System.out.println("You go North");
                             }
                             break;
                         case "east":
-                            System.out.println("second word should be east");
+                            if (currentRoom.isValidDirection(player, roomList, doorsEnum.EAST)){
+                                player.position.y ++;
+                                currentRoom = currentRoom.getRoomByPlayerPosition(player, roomList);
+                            }
                             break;
                         case "south":
                             if (currentRoom.isValidDirection(player, roomList, doorsEnum.SOUTH)){
                                 player.position.x --;
                                 currentRoom = currentRoom.getRoomByPlayerPosition(player, roomList);
-                                System.out.println("You go South");
                             }
                             break;
                         case "west":
-                            System.out.println("second word should be west");
+                            if (currentRoom.isValidDirection(player, roomList, doorsEnum.WEST)){
+                                player.position.y --;
+                                currentRoom = currentRoom.getRoomByPlayerPosition(player, roomList);
+                            }
                             break;
                         default:
                             System.out.println("there was no landmark direction after 'go'");
@@ -111,7 +114,8 @@ public class GameStart {
                     exitGame();
                 }
                 if(commandParts[0].contains("help")) {
-                    System.out.print("1. Go + North, East, South, West, Up & Down To enter another room.");
+                    System.out.println("1. Go + North, East, South, West, Up & Down To enter another room.");
+                    System.out.println("2. look to see what's in the current room.");
                     System.out.println("Attack to attack using the weapon you have equipped.");
                     System.out.println("Quit or Exit to close the game down.");
                 }
