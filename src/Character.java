@@ -23,6 +23,8 @@ public class Character {
     }
 
     public void takeDamage(int damage){
+        if (this.hp < 1)
+            System.out.println("The " + this.name + " is dead.");
         this.hp = this.hp - damage;
     }
 
@@ -56,11 +58,12 @@ public class Character {
 
     // If i store the enemies in a list in the room then I don't need to give them
     // coordinates. Only the player needs those.
-    public Character(String charName, int strength, int agility, Position position){
+    public Character(String charName, int strength, int agility, Position position, int hp){
         name = charName;
         this.strength = strength;
         this.agility = agility;
         this.position = position;
+        this.hp = hp;
     }
 
     // rolls 4 Six Sided die, ignores the lowest roll, and adds them together.

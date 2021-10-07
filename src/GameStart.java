@@ -28,8 +28,8 @@ public class GameStart {
 
         // Make some enemies
         Position monsterSpawnCoordinates = new Position(51, 50, 50);
-        Character enemy1 = new Character("Mammoth", 24, 9, monsterSpawnCoordinates);
-        Character enemy2 = new Character("Will-O'-Wisp", 5, 28, monsterSpawnCoordinates);
+        Character enemy1 = new Character("Mammoth", 24, 9, monsterSpawnCoordinates, 80);
+        Character enemy2 = new Character("Will-O'-Wisp", 5, 28, monsterSpawnCoordinates, 20);
 
 
 
