@@ -24,8 +24,10 @@ public class Character {
 
     public void takeDamage(int damage){
         if (this.hp < 1)
+        {
             System.out.println("The " + this.name + " is dead.");
-        this.hp = this.hp - damage;
+            this.hp = this.hp - damage;
+        }
     }
 
     public int getAgility() {

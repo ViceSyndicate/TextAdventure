@@ -5,8 +5,6 @@ import java.util.*;
 
 public class GameStart {
 
-    public ArrayList<Room> roomList = new ArrayList<Room>();
-
     public void initialization(){
 
         // Make a character and set spawnPosition
@@ -15,51 +13,21 @@ public class GameStart {
         System.out.println("Your Strength is: " + player.getStrength());
         System.out.println("Your Agility is: " + player.getAgility());
 
-
-
-        // Make some weapons
+        // Make a player weapon
         Weapon dagger = new Weapon("Dagger", 1,4);
         dagger.setDescription("Short Pointy Sword.");
-        Weapon mace = new Weapon("Mace",1, 6);
-        mace.setDescription("Bonk em with this");
         player.bag.container.add(dagger);
 
 
 
-        // Make some enemies
-        Position monsterSpawnCoordinates = new Position(51, 50, 50);
-        Character enemy1 = new Character("Mammoth", 24, 9, monsterSpawnCoordinates, 80);
-        Character enemy2 = new Character("Will-O'-Wisp", 5, 28, monsterSpawnCoordinates, 20);
 
 
 
-        // Create doors enum for use in roomCreation
-        List<doorsEnum> roomDoors = new ArrayList<doorsEnum>();
-        // add a door to the north in the arrayList of doors.
-        roomDoors.add(doorsEnum.NORTH);
-        // Create spawn Coordinates
-        Position roomCoordinates = new Position(50, 50, 50);
-        // This Entrance room should have 1 door to the north and the coordinates above.
-        final Room spawn = new Room("Cave", roomDoors, roomCoordinates);
-        roomList.add(spawn);
-
-        // Clear the doors and change X coordinates to create a new room to the north.
-        roomCoordinates.x++;
-        roomDoors.clear();
-        // create only 1 door to the east
-        roomDoors.add(doorsEnum.EAST);
-        final Room tunnel = new Room("Tunnel", roomDoors, roomCoordinates);
-        roomList.add(tunnel);
-
-        // set Y Coordinate to +1
-        roomCoordinates.y++;
-        final Room bigCave = new Room("Big Cave", roomDoors, roomCoordinates);
-        bigCave.itemsInRoom.add(mace);
-
+        RoomGeneration roomGenerator = new RoomGeneration();
+        ArrayList<Room> roomList = roomGenerator.generateRooms();
         // Add some enemies to the Cave
-        bigCave.charArrayList.add(enemy1);
-        bigCave.charArrayList.add(enemy2);
-        roomList.add(bigCave);
+        //bigCave.charArrayList.add(enemy1);
+        //bigCave.charArrayList.add(enemy2);
 
         gameLoop(player, roomList);
     }
