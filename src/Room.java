@@ -26,7 +26,16 @@ public class Room {
 
     public void lookAroundRoom(Room room){
         System.out.println("It looks like you're in a " + room.name);
-        System.out.println(room.description);
+        if (room.description != null)
+            System.out.println(room.description);
+
+        if (room.itemsInRoom.size() > 0){
+            System.out.println("There seems to be a few items in the room.");
+            for (Item item : room.itemsInRoom)
+                System.out.println(item.getName());
+        }
+
+
         System.out.print("There are " + doorsInRoom.size() + " paths. ");
         for (doorsEnum paths : doorsInRoom){
             System.out.print(paths + ", ");

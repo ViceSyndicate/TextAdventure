@@ -48,7 +48,7 @@ public class GameStart {
             String[] commandParts = input.split(" ");
 
             for (int i = 0; i < commandParts.length; i++){
-                if (commandParts[i].contains("go") && commandParts.length > i+1 ){
+                if (commandParts[i].equalsIgnoreCase("go") && commandParts.length > i+1 ){
                     switch (commandParts[1]) {
                         case "north":
                             if (currentRoom.isValidDirection(player, roomList, doorsEnum.NORTH)){
@@ -78,29 +78,30 @@ public class GameStart {
                             System.out.println("there was no landmark direction after 'go'");
                     }
                 }
-                if (commandParts[0].contains("exit") || commandParts[i].contains("quit")){
+                if (commandParts[0].equalsIgnoreCase("exit") || commandParts[i].contains("quit")){
                     exitGame();
                 }
-                if(commandParts[0].contains("help")) {
+                if(commandParts[0].equalsIgnoreCase("help")) {
                     System.out.println("1. Go + North, East, South, West, Up & Down To enter another room.");
                     System.out.println("2. look to see what's in the current room.");
                     System.out.println("Attack to attack using the weapon you have equipped.");
                     System.out.println("Quit or Exit to close the game down.");
                 }
-                if (commandParts[0].contains("look")){
+                if (commandParts[0].equalsIgnoreCase("look")){
                     // currentRoom = currentRoom.getRoomByPlayerPosition(player, roomList);
                     // This seems hacky, currentRoom calls its own function with itself.
                     // Is this bad practice?
                     currentRoom.lookAroundRoom(currentRoom);
                 }
-                if (commandParts[0].contains("take")){
+                if (commandParts[0].equalsIgnoreCase("take") && commandParts.length > 0){
                     for ( Item item : currentRoom.itemsInRoom) {
-                        if (commandParts[1].contains(item.getName())){
+                        if (commandParts[1].equalsIgnoreCase(item.getName())){
                             player.bag.addItemToContainer(item);
+                            System.out.println("Added " + item.getName() + " To the bag!");
                         }
                     }
                 }
-                if (commandParts[0].contains("inventory")){
+                if (commandParts[0].equalsIgnoreCase("inventory")){
                     System.out.println("Your bag Contains");
                     System.out.println("---------------------------");
                     for (int x = 0; x < player.bag.container.size(); x++){
