@@ -1,4 +1,5 @@
 import Items.Item;
+import Items.ItemContainer;
 import Items.Weapon;
 
 import java.util.*;
@@ -47,66 +48,73 @@ public class GameStart {
             String input = scanner.nextLine().toLowerCase(Locale.ROOT);
             String[] commandParts = input.split(" ");
 
-            for (int i = 0; i < commandParts.length; i++){
-                if (commandParts[i].equalsIgnoreCase("go") && commandParts.length > i+1 ){
-                    switch (commandParts[1]) {
-                        case "north":
-                            if (currentRoom.isValidDirection(player, roomList, doorsEnum.NORTH)){
-                                player.position.x ++;
-                                currentRoom = currentRoom.getRoomByPlayerPosition(player, roomList);
-                            }
-                            break;
-                        case "east":
-                            if (currentRoom.isValidDirection(player, roomList, doorsEnum.EAST)){
-                                player.position.y ++;
-                                currentRoom = currentRoom.getRoomByPlayerPosition(player, roomList);
-                            }
-                            break;
-                        case "south":
-                            if (currentRoom.isValidDirection(player, roomList, doorsEnum.SOUTH)){
-                                player.position.x --;
-                                currentRoom = currentRoom.getRoomByPlayerPosition(player, roomList);
-                            }
-                            break;
-                        case "west":
-                            if (currentRoom.isValidDirection(player, roomList, doorsEnum.WEST)){
-                                player.position.y --;
-                                currentRoom = currentRoom.getRoomByPlayerPosition(player, roomList);
-                            }
-                            break;
-                        default:
-                            System.out.println("there was no landmark direction after 'go'");
-                    }
-                }
-                if (commandParts[0].equalsIgnoreCase("exit") || commandParts[i].contains("quit")){
-                    exitGame();
-                }
-                if(commandParts[0].equalsIgnoreCase("help")) {
-                    System.out.println("1. Go + North, East, South, West, Up & Down To enter another room.");
-                    System.out.println("2. look to see what's in the current room.");
-                    System.out.println("Attack to attack using the weapon you have equipped.");
-                    System.out.println("Quit or Exit to close the game down.");
-                }
-                if (commandParts[0].equalsIgnoreCase("look")){
-                    // currentRoom = currentRoom.getRoomByPlayerPosition(player, roomList);
-                    // This seems hacky, currentRoom calls its own function with itself.
-                    // Is this bad practice?
-                    currentRoom.lookAroundRoom(currentRoom);
-                }
-                if (commandParts[0].equalsIgnoreCase("take") && commandParts.length > 0){
-                    for ( Item item : currentRoom.itemsInRoom) {
-                        if (commandParts[1].equalsIgnoreCase(item.getName())){
-                            player.bag.addItemToContainer(item);
-                            System.out.println("Added " + item.getName() + " To the bag!");
+            if (commandParts[0].equalsIgnoreCase("go")){
+                for (int i = 0; i < commandParts.length; i++){
+                    if (commandParts[i].equalsIgnoreCase("go") && commandParts.length > i+1 ){
+                        switch (commandParts[1]) {
+                            case "north":
+                                if (currentRoom.isValidDirection(player, roomList, doorsEnum.NORTH)){
+                                    player.position.x ++;
+                                    currentRoom = currentRoom.getRoomByPlayerPosition(player, roomList);
+                                }
+                                break;
+                            case "east":
+                                if (currentRoom.isValidDirection(player, roomList, doorsEnum.EAST)){
+                                    player.position.y ++;
+                                    currentRoom = currentRoom.getRoomByPlayerPosition(player, roomList);
+                                }
+                                break;
+                            case "south":
+                                if (currentRoom.isValidDirection(player, roomList, doorsEnum.SOUTH)){
+                                    player.position.x --;
+                                    currentRoom = currentRoom.getRoomByPlayerPosition(player, roomList);
+                                }
+                                break;
+                            case "west":
+                                if (currentRoom.isValidDirection(player, roomList, doorsEnum.WEST)){
+                                    player.position.y --;
+                                    currentRoom = currentRoom.getRoomByPlayerPosition(player, roomList);
+                                }
+                                break;
+                            default:
+                                System.out.println("there was no landmark direction after 'go'");
                         }
                     }
                 }
-                if (commandParts[0].equalsIgnoreCase("inventory")){
-                    System.out.println("Your bag Contains");
-                    System.out.println("---------------------------");
-                    for (int x = 0; x < player.bag.container.size(); x++){
-                        System.out.println(player.bag.container.get(x).getName());
+            }
+
+
+            if (commandParts[0].equalsIgnoreCase("exit") || commandParts[0].equalsIgnoreCase("quit")){
+                exitGame();
+            }
+            if(commandParts[0].equalsIgnoreCase("help")) {
+                System.out.println("1. Go + North, East, South, West, Up & Down To enter another room.");
+                System.out.println("2. look to see what's in the current room.");
+                System.out.println("Attack to attack using the weapon you have equipped.");
+                System.out.println("Quit or Exit to close the game down.");
+            }
+            if (commandParts[0].equalsIgnoreCase("look")){
+                // currentRoom = currentRoom.getRoomByPlayerPosition(player, roomList);
+                // This seems hacky, currentRoom calls its own function with itself.
+                // Is this bad practice?
+                currentRoom.lookAroundRoom(currentRoom);
+            }
+            // Currently picks up at least 2 items and +1 for every word after a space because the loop runs several times.
+            // I need this to only run once per command...
+            if (commandParts[0].equalsIgnoreCase("take") && commandParts.length > 0){
+                for (int i = 0;  i < currentRoom.itemsInRoom.size(); i++){
+                    if (commandParts[1].equalsIgnoreCase(currentRoom.itemsInRoom.get(i).getName())){
+                        player.bag.addItemToContainer(currentRoom.itemsInRoom.get(i));
+                        System.out.println("Added " + currentRoom.itemsInRoom.get(i).getName() + " To the bag!");
+                        currentRoom.itemsInRoom.remove(i);
                     }
+                }
+            }
+            if (commandParts[0].equalsIgnoreCase("inventory")){
+                System.out.println("Your bag Contains");
+                System.out.println("---------------------------");
+                for (int x = 0; x < player.bag.container.size(); x++){
+                    System.out.println(player.bag.container.get(x).getName());
                 }
             }
         }
