@@ -1,21 +1,15 @@
 package Items;
 
-import Items.Item;
-
 public class Weapon extends Item {
     int minDamage;
     int maxDamage;
+    WeaponDamageModifier modifier;
 
-//    public int attack(){
-//        int range = maxDamage - minDamage +1;
-//        int randomDamageNumber = (int)(Math.random() * range ) + minDamage;
-//        return randomDamageNumber;
-//    }
-
-    public Weapon(String name, int minimumDamage, int maximumDamage){
+    public Weapon(String name, int minimumDamage, int maximumDamage, WeaponDamageModifier type){
         this.name = name;
         this.minDamage = minimumDamage;
         this.maxDamage = maximumDamage;
+        this.modifier = type;
     }
 
     public int getMaxDamage() {

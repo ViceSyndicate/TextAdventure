@@ -1,4 +1,5 @@
 import Items.Weapon;
+import Items.WeaponDamageModifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +18,25 @@ public class RoomGeneration {
         roomCoordinates.x ++;
         roomDoors.add(doorsEnum.EAST);
         roomDoors.add(doorsEnum.SOUTH);
+        roomDoors.add(doorsEnum.WEST);
         Room tunnel = new Room("Tunnel", roomDoors, roomCoordinates);
         roomList.add(tunnel);
 
         roomDoors.clear();
-        roomCoordinates.y ++;
+        roomCoordinates.y = 49;
+        roomDoors.add(doorsEnum.WEST);
+        roomDoors.add(doorsEnum.EAST);
+        Room tunnel2 = new Room("Tunnel", roomDoors, roomCoordinates);
+        roomList.add(tunnel2);
+
+        roomDoors.clear();
+        roomCoordinates.y = 48;
+        roomDoors.add(doorsEnum.EAST);
+        Room tunnel3 = new Room("Tunnel", roomDoors, roomCoordinates);
+        roomList.add(tunnel3);
+
+        roomDoors.clear();
+        roomCoordinates.y = 51;
         roomDoors.add(doorsEnum.WEST);
         Room bigCave = new Room("Big Tunnel", roomDoors, roomCoordinates);
         roomList.add(bigCave);
@@ -35,10 +50,10 @@ public class RoomGeneration {
         bigCave.charArrayList.add(enemy2);
 
         // Add a mace to the room
-        Weapon mace = new Weapon("Mace",1, 6);
+        Weapon mace = new Weapon("Mace",1, 6, WeaponDamageModifier.STRENGTH);
         mace.setDescription("Bonk em with this");
         bigCave.itemsInRoom.add(mace);
-        Weapon BFG = new Weapon("BFG", 12, 24);
+        Weapon BFG = new Weapon("BFG", 12, 24, WeaponDamageModifier.FINESS);
         BFG.setDescription("You should not have this.");
         bigCave.itemsInRoom.add(BFG);
 

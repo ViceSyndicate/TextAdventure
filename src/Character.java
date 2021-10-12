@@ -1,10 +1,11 @@
 import Items.ItemContainer;
 import Items.Weapon;
+import Items.WeaponDamageModifier;
 
 public class Character {
     private String name;
     private int hp = 100;
-    private int strength;
+    private int strength ;
     private int agility;
     Weapon heldWeapon;
     public Position position;
@@ -29,7 +30,6 @@ public class Character {
     }
 
     public void takeDamage(int damage){
-
         if (!isDead())
             this.hp = this.hp - damage;
         if (isDead())
@@ -68,9 +68,6 @@ public class Character {
         agility = characterStatGenerator();
         // Spawn player with a 10 slot bag.
         ItemContainer bag = new ItemContainer("Backpack", 10);
-        Weapon startingWeapon = new Weapon("Dagger", 1, 4);
-        startingWeapon.setDescription("Sharp, Short and Pointy");
-        bag.addItemToContainer(startingWeapon);
         this.position = new Position(position);
     }
 
