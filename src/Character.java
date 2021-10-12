@@ -17,9 +17,14 @@ public class Character {
     // write this code shorter but this is more flexible. So I'm keeping it just in case.
     // An attack should also take a characters Strength or Agility in consideration
     // So that value also needs to be considered.
-    public int attack(int minAttackVal, int maxAttackVal){
-        int range = maxAttackVal - minAttackVal +1;
-        return (int)(Math.random() * range ) + minAttackVal;
+    // In order to get the correct modifier, Weapons will also need a weapon type.
+    public int attack(){
+        if (this.heldWeapon == null){
+            return 1; // + strength modifier...
+        } else {
+            int range = heldWeapon.getMaxDamage() - heldWeapon.getMinDamage() +1;
+            return (int)(Math.random() * range ) + heldWeapon.getMinDamage();
+        }
     }
 
     public void takeDamage(int damage){
@@ -28,6 +33,10 @@ public class Character {
             System.out.println("The " + this.name + " is dead.");
             this.hp = this.hp - damage;
         }
+    }
+
+    public String getName(){
+        return this.name;
     }
 
     public int getAgility() {

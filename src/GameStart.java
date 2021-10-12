@@ -157,7 +157,19 @@ public class GameStart {
                 }
 
             }
-
+            if (commandParts[0].equalsIgnoreCase("attack") && commandParts.length > 0){
+                try {
+                    int indexToAttack = Integer.parseInt(commandParts[1]);
+                    currentRoom.charArrayList.size();
+                    if (indexToAttack <= currentRoom.charArrayList.size()){
+                        int minDmg = player.heldWeapon.attack();
+                        currentRoom.charArrayList.get(indexToAttack).takeDamage();
+                    }
+                } catch (NumberFormatException e){
+                    System.out.println("That is not a valid target!");
+                    System.out.println("write the number before the name of the enemy you want to attack");
+                }
+            }
         }
     }
     public void exitGame(){

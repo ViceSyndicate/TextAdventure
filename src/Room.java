@@ -19,7 +19,7 @@ public class Room {
     protected Position position;
     public List<doorsEnum> doorsInRoom = new ArrayList<doorsEnum>();
     ArrayList<Item> itemsInRoom = new ArrayList<>();
-    ArrayList charArrayList = new ArrayList<Character>();
+    ArrayList<Character> charArrayList = new ArrayList<Character>();
 
     // varje rum hanterar sina egna dörrar och när spelaren vill gå ngt håll
     // Så frågar main klassen om det finns en dörr i direktionen spelaren vill gå.
@@ -35,10 +35,18 @@ public class Room {
                 System.out.println(item.getName());
         }
 
-
         System.out.print("There are " + doorsInRoom.size() + " paths. ");
         for (doorsEnum paths : doorsInRoom){
             System.out.print(paths + ", ");
+        }
+        System.out.println();
+
+        if (room.charArrayList.size() > 0){
+            System.out.println("You're not alone in the room!");
+            for (int i = 0; i < charArrayList.size(); i++){
+                System.out.println("There's a" +
+                        "[" + i + "] " + charArrayList.get(i).getName());
+            }
         }
     }
 
