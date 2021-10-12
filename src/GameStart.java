@@ -131,13 +131,16 @@ public class GameStart {
 
             if (commandParts[0].equalsIgnoreCase("equip") && commandParts.length > 0 && player.heldWeapon == null){
                 for(int i = 0; i < player.bag.container.size(); i++){
+
+                    if (commandParts[1].equalsIgnoreCase(player.bag.container.get(i).getName()) &&
+                            !(player.bag.container.get(i) instanceof Weapon))
+                        System.out.println("That is not a weapon.");
+
                     if (commandParts[1].equalsIgnoreCase(player.bag.container.get(i).getName()) &&
                             player.bag.container.get(i) instanceof Weapon){
                         player.heldWeapon = (Weapon)player.bag.container.get(i);
                         player.bag.container.remove(i);
                     }
-                    if (commandParts[1].equalsIgnoreCase(player.bag.container.get(i).getName()) && !(player.bag.container.get(i) instanceof Weapon))
-                        System.out.println("That is not a weapon.");
                 }
                 if (!(player.heldWeapon == null)){
                     System.out.println("You're now Holding a " + player.heldWeapon.getName());
@@ -159,11 +162,18 @@ public class GameStart {
             }
             if (commandParts[0].equalsIgnoreCase("attack") && commandParts.length > 0){
                 try {
-                    int indexToAttack = Integer.parseInt(commandParts[1]);
-                    currentRoom.charArrayList.size();
-                    if (indexToAttack <= currentRoom.charArrayList.size()){
-                        int minDmg = player.heldWeapon.attack();
-                        currentRoom.charArrayList.get(indexToAttack).takeDamage();
+                    int indexOfMonsterInArray = Integer.parseInt(commandParts[1]);
+                    if (indexOfMonsterInArray <= currentRoom.charArrayList.size()){
+                        int damage = player.attack();
+                        System.out.println("you hit " + currentRoom.charArrayList.get(indexOfMonsterInArray).getName()
+                        + "for: " + damage + "!");
+                        currentRoom.charArrayList.get(indexOfMonsterInArray).takeDamage(damage);
+                        if (!currentRoom.charArrayList.get(indexOfMonsterInArray).isDead()){
+                            int monstersAttackDamage = currentRoom.charArrayList.get(indexOfMonsterInArray).attack();
+                            player.takeDamage(monstersAttackDamage);
+                            System.out.println("The " + currentRoom.charArrayList.get(indexOfMonsterInArray).getName()
+                            + " hits you back for " + monstersAttackDamage);
+                        }
                     }
                 } catch (NumberFormatException e){
                     System.out.println("That is not a valid target!");

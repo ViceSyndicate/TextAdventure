@@ -38,6 +38,9 @@ public class RoomGeneration {
         Weapon mace = new Weapon("Mace",1, 6);
         mace.setDescription("Bonk em with this");
         bigCave.itemsInRoom.add(mace);
+        Weapon BFG = new Weapon("BFG", 12, 24);
+        BFG.setDescription("You should not have this.");
+        bigCave.itemsInRoom.add(BFG);
 
         return roomList;
     }

@@ -9,6 +9,7 @@ public class Character {
     Weapon heldWeapon;
     public Position position;
     ItemContainer bag = new ItemContainer("Backpack", 10);
+    boolean isDead = false;
     // Strength + HP + Strength Items.Weapon Dmg
     // Agility + Dodge + Agile Items.Weapon Dmg
 
@@ -28,11 +29,16 @@ public class Character {
     }
 
     public void takeDamage(int damage){
-        if (this.hp < 1)
+        if (isDead())
         {
             System.out.println("The " + this.name + " is dead.");
             this.hp = this.hp - damage;
         }
+    }
+
+    public boolean isDead(){
+        if (hp < 1) isDead = true;
+        return isDead;
     }
 
     public String getName(){
