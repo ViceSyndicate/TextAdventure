@@ -2,6 +2,7 @@ import Items.Item;
 import Items.ItemContainer;
 import Items.Weapon;
 
+import java.io.IOException;
 import java.util.*;
 
 public class GameStart {
@@ -19,7 +20,11 @@ public class GameStart {
         dagger.setDescription("Short Pointy Sword.");
         player.bag.container.add(dagger);
 
-
+        // Make a test item
+        Item banana = new Item();
+        banana.setName("Banana");
+        banana.setDescription("Skala banan! Skala banan! Skala banan! Skala banan!");
+        player.bag.container.add(banana);
 
 
 
@@ -35,11 +40,17 @@ public class GameStart {
 
     public void gameLoop(Character player, ArrayList<Room> roomList){
 
+        try{
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } catch (Exception e){
+            System.out.println("Shit went wrong");
+            e.printStackTrace();
+        }
+
         Room currentRoom = roomList.get(0);
         System.out.println("You wake up in a dimly lit cave");
         System.out.println("You can interact with this game using text commands.");
         System.out.println("Write 'help' for some commands");
-
 
 
         while(true){
@@ -116,6 +127,25 @@ public class GameStart {
                 for (int x = 0; x < player.bag.container.size(); x++){
                     System.out.println(player.bag.container.get(x).getName());
                 }
+            }
+            if (commandParts[0].equalsIgnoreCase("equip") && commandParts.length > 0){
+                for(int i = 0; i < player.bag.container.size(); i++){
+                    if (commandParts[1].equalsIgnoreCase(player.bag.container.get(i).getName()) &&
+                            player.bag.container.get(i) instanceof Weapon){
+                        player.heldWeapon = (Weapon)player.bag.container.get(i);
+                        player.bag.container.remove(i);
+                    }
+                    if (commandParts[1].equalsIgnoreCase(player.bag.container.get(i).getName()) && !(player.bag.container.get(i) instanceof Weapon))
+                        System.out.println("That is not a weapon.");
+                }
+                if (!(player.heldWeapon == null)){
+                    System.out.println("You're now Holding a " + player.heldWeapon.getName());
+                }
+            }
+            if (commandParts[0].equalsIgnoreCase("unequip") && commandParts.length > 0 && player.heldWeapon != null){
+                player.bag.container.add(player.heldWeapon);
+                player.heldWeapon = null;
+                System.out.println("You put your weapon in your bag.");
             }
         }
     }

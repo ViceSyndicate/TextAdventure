@@ -6,7 +6,7 @@ public class Character {
     private int hp = 100;
     private int strength;
     private int agility;
-    //public int[] position;
+    Weapon heldWeapon;
     public Position position;
     ItemContainer bag = new ItemContainer("Backpack", 10);
     // Strength + HP + Strength Items.Weapon Dmg
