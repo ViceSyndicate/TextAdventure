@@ -128,7 +128,8 @@ public class GameStart {
                     System.out.println(player.bag.container.get(x).getName());
                 }
             }
-            if (commandParts[0].equalsIgnoreCase("equip") && commandParts.length > 0){
+
+            if (commandParts[0].equalsIgnoreCase("equip") && commandParts.length > 0 && player.heldWeapon == null){
                 for(int i = 0; i < player.bag.container.size(); i++){
                     if (commandParts[1].equalsIgnoreCase(player.bag.container.get(i).getName()) &&
                             player.bag.container.get(i) instanceof Weapon){
@@ -147,6 +148,16 @@ public class GameStart {
                 player.heldWeapon = null;
                 System.out.println("You put your weapon in your bag.");
             }
+            if (commandParts[0].equalsIgnoreCase("holding") || commandParts[0].equalsIgnoreCase("hand")){
+                if (player.heldWeapon == null) {
+                    System.out.println("You're unarmed.");
+                } else {
+                    System.out.println("You're holding a " + player.heldWeapon.getName());
+                    System.out.println(player.heldWeapon.getDescription());
+                }
+
+            }
+
         }
     }
     public void exitGame(){
