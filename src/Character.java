@@ -29,11 +29,12 @@ public class Character {
     }
 
     public void takeDamage(int damage){
-        if (isDead())
-        {
-            System.out.println("The " + this.name + " is dead.");
+
+        if (!isDead())
             this.hp = this.hp - damage;
-        }
+        if (isDead())
+            System.out.println("The " + this.name + " is dead.");
+
     }
 
     public boolean isDead(){
