@@ -1,9 +1,7 @@
 import Items.Item;
-import Items.ItemContainer;
 import Items.Weapon;
 import Items.WeaponDamageModifier;
 
-import java.io.IOException;
 import java.util.*;
 
 public class GameStart {
@@ -14,7 +12,7 @@ public class GameStart {
         Position playerPosition = new Position(50, 50, 50);
         Character player = new Character("TestCharacter", playerPosition);
         System.out.println("Your Strength is: " + player.getStrength());
-        System.out.println("Your Agility is: " + player.getAgility());
+        System.out.println("Your Agility is: " + player.getDexterity());
 
         // Make a player weapon
         Weapon dagger = new Weapon("Dagger", 1,4, WeaponDamageModifier.DEXTERITY);

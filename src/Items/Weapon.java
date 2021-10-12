@@ -19,4 +19,8 @@ public class Weapon extends Item {
     public int getMinDamage() {
         return minDamage;
     }
+
+    public WeaponDamageModifier getModifier() {
+        return modifier;
+    }
 }
