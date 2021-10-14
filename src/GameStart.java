@@ -62,7 +62,7 @@ public class GameStart {
 
             if (commandParts[0].equalsIgnoreCase("go")){
                 for (int i = 0; i < commandParts.length; i++){
-                    if (commandParts[i].equalsIgnoreCase("go") && commandParts.length > i+1 ){
+                    if (commandParts.length > i+1 ){
                         switch (commandParts[1]) {
                             case "north":
                                 if (currentRoom.isValidDirection(player, roomList, doorsEnum.NORTH)){
@@ -107,8 +107,6 @@ public class GameStart {
             }
 
             if (commandParts[0].equalsIgnoreCase("look")){
-                // This seems hacky, currentRoom calls its own function with itself.
-                // Is this bad practice?
                 currentRoom.lookAroundRoom();
             }
 
@@ -154,17 +152,18 @@ public class GameStart {
             if (commandParts[0].equalsIgnoreCase("attack") && commandParts.length > 0){
                 try {
                     int indexOfMonsterInArray = Integer.parseInt(commandParts[1]);
+                    // Else you're targeting sth that doesn't exist.
                     if (indexOfMonsterInArray <= currentRoom.charArrayList.size()){
+                        Character monster = currentRoom.charArrayList.get(indexOfMonsterInArray);
                         int damage = player.attack();
-                        System.out.println("you hit " + currentRoom.charArrayList.get(indexOfMonsterInArray).getName()
+                        System.out.println("you hit " + monster.getName()
                         + "for: " + damage + "!");
-                        currentRoom.charArrayList.get(indexOfMonsterInArray).takeDamage(damage, currentRoom);
+                        monster.takeDamage(damage, currentRoom);
                         // if monster is not dead. It hits back.
-                        if (!currentRoom.charArrayList.get(indexOfMonsterInArray).isDead){
-                            int monstersAttackDamage = currentRoom.charArrayList.get(indexOfMonsterInArray).attack();
+                        if (!monster.isDead){
+                            int monstersAttackDamage = monster.attack();
                             player.takeDamage(monstersAttackDamage);
-                            System.out.println("The " + currentRoom.charArrayList.get(indexOfMonsterInArray).getName()
-                            + " hits you back for " + monstersAttackDamage);
+                            System.out.println("The " + monster.getName() + " hits you back for " + monstersAttackDamage);
                         }
                     }
                 } catch (NumberFormatException e){
