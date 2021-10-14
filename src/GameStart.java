@@ -105,13 +105,11 @@ public class GameStart {
                 System.out.println("Quit or Exit to close the game down.");
             }
             if (commandParts[0].equalsIgnoreCase("look")){
-                // currentRoom = currentRoom.getRoomByPlayerPosition(player, roomList);
                 // This seems hacky, currentRoom calls its own function with itself.
                 // Is this bad practice?
                 currentRoom.lookAroundRoom(currentRoom);
             }
-            // Currently picks up at least 2 items and +1 for every word after a space because the loop runs several times.
-            // I need this to only run once per command...
+
             if (commandParts[0].equalsIgnoreCase("take") && commandParts.length > 0){
                 for (int i = 0;  i < currentRoom.itemsInRoom.size(); i++){
                     if (commandParts[1].equalsIgnoreCase(currentRoom.itemsInRoom.get(i).getName())){
@@ -121,6 +119,7 @@ public class GameStart {
                     }
                 }
             }
+
             if (commandParts[0].equalsIgnoreCase("inventory")){
                 System.out.println("Your bag Contains");
                 System.out.println("---------------------------");
