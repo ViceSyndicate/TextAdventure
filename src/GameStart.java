@@ -104,9 +104,20 @@ public class GameStart {
                 System.out.println("Attack to attack using the weapon you have equipped.");
                 System.out.println("Quit or Exit to close the game down.");
             }
+
             if (commandParts[0].equalsIgnoreCase("look")){
                 // This seems hacky, currentRoom calls its own function with itself.
                 // Is this bad practice?
+                currentRoom.lookAroundRoom(currentRoom);
+            }
+
+            if (commandParts[0].equalsIgnoreCase("look") && commandParts.length > 0){
+                int indexOfMonsterInArray = Integer.parseInt(commandParts[1]);
+                if (indexOfMonsterInArray <= currentRoom.charArrayList.size()){
+                    System.out.println("You search the " + currentRoom.charArrayList.get(indexOfMonsterInArray).getName());
+                    for (int i = 0; i < currentRoom.charArrayList.get(indexOfMonsterInArray).)
+                }
+
                 currentRoom.lookAroundRoom(currentRoom);
             }
 

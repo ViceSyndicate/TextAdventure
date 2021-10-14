@@ -1,3 +1,4 @@
+import Items.Item;
 import Items.ItemContainer;
 import Items.Weapon;
 
@@ -47,6 +48,8 @@ public class Character {
 
     public boolean isDead(){
         if (hp < 1) isDead = true;
+        // Put the monsters held weapon in its bag so you can loot it easier.
+        bag.container.add(heldWeapon);
         return isDead;
     }
 
