@@ -10,11 +10,19 @@ public class GameStart {
 
     public void initialization(){
 
+        RoomGeneration roomGenerator = new RoomGeneration();
+        ArrayList<Room> roomList = roomGenerator.generateRooms();
+
         // Make a character and set spawnPosition
         Position playerPosition = new Position(50, 50, 50);
         Character player = new Character("TestCharacter", playerPosition);
         System.out.println("Your Strength is: " + player.getStrength());
         System.out.println("Your Agility is: " + player.getDexterity());
+
+        // For testing.
+        Weapon BFG = new Weapon("BFG", 12, 24, WeaponDamageModifier.FINESS);
+        BFG.setDescription("You should not have this.");
+        player.heldWeapon = BFG;
 
         // Make a player weapon
         Weapon dagger = new Weapon("Dagger", 1,4, WeaponDamageModifier.DEXTERITY);
@@ -26,15 +34,6 @@ public class GameStart {
         banana.setName("Banana");
         banana.setDescription("Skala banan! Skala banan! Skala banan! Skala banan!");
         player.bag.container.add(banana);
-
-
-
-
-        RoomGeneration roomGenerator = new RoomGeneration();
-        ArrayList<Room> roomList = roomGenerator.generateRooms();
-        // Add some enemies to the Cave
-        //bigCave.charArrayList.add(enemy1);
-        //bigCave.charArrayList.add(enemy2);
 
         gameLoop(player, roomList);
     }
@@ -54,6 +53,8 @@ public class GameStart {
         System.out.println("Write 'help' for some commands");
 
         while(running){
+
+            System.out.println("Player Coordinates: " + player.position.x + ", " + player.position.y + ", " + player.position.x + ".");
 
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine().toLowerCase(Locale.ROOT);
@@ -108,27 +109,7 @@ public class GameStart {
             if (commandParts[0].equalsIgnoreCase("look")){
                 // This seems hacky, currentRoom calls its own function with itself.
                 // Is this bad practice?
-                currentRoom.lookAroundRoom(currentRoom);
-            }
-
-            if (commandParts[0].equalsIgnoreCase("look") && commandParts.length > 0){
-                int indexOfMonsterInArray = Integer.parseInt(commandParts[1]);
-                if (indexOfMonsterInArray <= currentRoom.charArrayList.size()){
-                    System.out.println("You search the " + currentRoom.charArrayList.get(indexOfMonsterInArray).getName());
-                    for (int i = 0; i < currentRoom.charArrayList.get(indexOfMonsterInArray).)
-                }
-
-                currentRoom.lookAroundRoom(currentRoom);
-            }
-
-            if (commandParts[0].equalsIgnoreCase("take") && commandParts.length > 0){
-                for (int i = 0;  i < currentRoom.itemsInRoom.size(); i++){
-                    if (commandParts[1].equalsIgnoreCase(currentRoom.itemsInRoom.get(i).getName())){
-                        player.bag.addItemToContainer(currentRoom.itemsInRoom.get(i));
-                        System.out.println("Added " + currentRoom.itemsInRoom.get(i).getName() + " To the bag!");
-                        currentRoom.itemsInRoom.remove(i);
-                    }
-                }
+                currentRoom.lookAroundRoom();
             }
 
             if (commandParts[0].equalsIgnoreCase("inventory")){
@@ -177,8 +158,9 @@ public class GameStart {
                         int damage = player.attack();
                         System.out.println("you hit " + currentRoom.charArrayList.get(indexOfMonsterInArray).getName()
                         + "for: " + damage + "!");
-                        currentRoom.charArrayList.get(indexOfMonsterInArray).takeDamage(damage);
-                        if (!currentRoom.charArrayList.get(indexOfMonsterInArray).isDead()){
+                        currentRoom.charArrayList.get(indexOfMonsterInArray).takeDamage(damage, currentRoom);
+                        // if monster is not dead. It hits back.
+                        if (!currentRoom.charArrayList.get(indexOfMonsterInArray).isDead){
                             int monstersAttackDamage = currentRoom.charArrayList.get(indexOfMonsterInArray).attack();
                             player.takeDamage(monstersAttackDamage);
                             System.out.println("The " + currentRoom.charArrayList.get(indexOfMonsterInArray).getName()

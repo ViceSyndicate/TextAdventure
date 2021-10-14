@@ -5,22 +5,22 @@ import java.util.ArrayList;
 public class ItemContainer extends Item{
     String name;
     public ArrayList<Item> container = new ArrayList<Item>();
-    int size;
+    int maxSize;
 
     // create A empty container with a set size nr
-    public ItemContainer(String name, int size){
+    public ItemContainer(String name, int maxSize){
         this.name = name;
-        this.size = size;
+        this.maxSize = maxSize;
     }
     // Creates a container with a list of item
-    public ItemContainer(String name, ArrayList<Item> container, int size){
+    public ItemContainer(String name, ArrayList<Item> container, int maxSize){
         this.name = name;
         this.container = container;
-        this.size = size;
+        this.maxSize = maxSize;
     }
 
     public void addItemToContainer(Item item){
-        if (container.size() < size)
+        if (container.size() < maxSize)
             container.add(item);
         else
             System.out.println("The container can't fit any more items.");

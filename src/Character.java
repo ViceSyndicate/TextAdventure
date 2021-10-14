@@ -38,18 +38,51 @@ public class Character {
         }
     }
 
-    public void takeDamage(int damage){
-        if (!isDead())
-            this.hp = this.hp - damage;
-        if (isDead())
-            System.out.println("The " + this.name + " is dead.");
 
+    public void dropAllItems(Room currentRoom){
+        if (bag.container.size() >= 1){
+            System.out.println(getName() + " Dropped: ");
+            // Drop all items on character in the room.
+            for (int i = 0; i < bag.container.size(); i ++){
+                System.out.println(bag.container.get(i).getName());
+                currentRoom.itemsInRoom.add(bag.container.get(i));
+            }
+            // Empty the characters bag. Might be redundant but better safe than sorry.
+            for (int i = 0; i < bag.container.size(); i ++){
+                bag.container.remove(i);
+            }
+        }
     }
 
-    public boolean isDead(){
-        if (hp < 1) isDead = true;
-        // Put the monsters held weapon in its bag so you can loot it easier.
-        bag.container.add(heldWeapon);
+    // Used for enemies.
+    public void takeDamage(int damage, Room currentRoom){
+        if (!isDead) {
+            this.hp = this.hp - damage;
+            isDeadCheck(currentRoom);
+        }
+    }
+
+    // Used for the player.
+    public void takeDamage(int damage){
+        if (!isDead) {
+            this.hp = this.hp - damage;
+        }
+        if (isDead){
+            System.out.println("The " + this.name + " is dead.");
+        }
+    }
+
+    public boolean isDeadCheck(Room currentRoom){
+        if (hp < 1 && !isDead) {
+            isDead = true;
+            System.out.println("The " + getName() + " Is Dead!");
+            name = "DEAD - " + name;
+            // If the monster has a weapon. Put it in its bag, So you can loot it easier.
+            if (heldWeapon != null) {
+                bag.container.add(heldWeapon);
+            }
+            dropAllItems(currentRoom); // Drop all items in the current room.
+        }
         return isDead;
     }
 

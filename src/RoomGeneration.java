@@ -42,22 +42,20 @@ public class RoomGeneration {
         roomList.add(bigCave);
 
         // Make some enemies
-        Position monsterSpawnCoordinates = new Position(51, 50, 50);
+        Position monsterSpawnCoordinates = new Position(50, 50, 50);
         Character enemy1 = new Character("Mammoth", 24, 9, monsterSpawnCoordinates, 80);
         Character enemy2 = new Character("Will-O'-Wisp", 5, 28, monsterSpawnCoordinates, 20);
         Weapon wand1 = new Weapon("Wand", 4, 8, WeaponDamageModifier.DEXTERITY);
         enemy2.bag.addItemToContainer(wand1);
+        enemy2.heldWeapon = wand1;
 
-        bigCave.charArrayList.add(enemy1);
-        bigCave.charArrayList.add(enemy2);
+        spawnRoom.charArrayList.add(enemy1);
+        spawnRoom.charArrayList.add(enemy2);
 
         // Add a mace to the room
         Weapon mace = new Weapon("Mace",1, 6, WeaponDamageModifier.STRENGTH);
         mace.setDescription("Bonk em with this");
-        bigCave.itemsInRoom.add(mace);
-        Weapon BFG = new Weapon("BFG", 12, 24, WeaponDamageModifier.FINESS);
-        BFG.setDescription("You should not have this.");
-        bigCave.itemsInRoom.add(BFG);
+        spawnRoom.itemsInRoom.add(mace);
 
         return roomList;
     }

@@ -14,7 +14,6 @@ enum doorsEnum {
 public class Room {
     String name;
     String description;
-    // protected int[] position = new int[3];
     protected Position position;
     public List<doorsEnum> doorsInRoom = new ArrayList<doorsEnum>();
     ArrayList<Item> itemsInRoom = new ArrayList<>();
@@ -23,14 +22,14 @@ public class Room {
     // varje rum hanterar sina egna dörrar och när spelaren vill gå ngt håll
     // Så frågar main klassen om det finns en dörr i direktionen spelaren vill gå.
 
-    public void lookAroundRoom(Room room){
-        System.out.println("It looks like you're in a " + room.name);
-        if (room.description != null)
-            System.out.println(room.description);
+    public void lookAroundRoom(){
+        System.out.println("It looks like you're in a " + name);
+        if (description != null)
+            System.out.println(description);
 
-        if (room.itemsInRoom.size() > 0){
+        if (itemsInRoom.size() > 0){
             System.out.println("There seems to be a few items in the room.");
-            for (Item item : room.itemsInRoom)
+            for (Item item : itemsInRoom)
                 System.out.println(item.getName());
         }
 
@@ -40,7 +39,7 @@ public class Room {
         }
         System.out.println();
 
-        if (room.charArrayList.size() > 0){
+        if (charArrayList.size() > 0){
             System.out.println("You're not alone in the room!");
             for (int i = 0; i < charArrayList.size(); i++){
                 System.out.println("There's a" +
