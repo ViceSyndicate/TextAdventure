@@ -6,6 +6,8 @@ import java.util.*;
 
 public class GameStart {
 
+    boolean running = true;
+
     public void initialization(){
 
         // Make a character and set spawnPosition
@@ -51,8 +53,7 @@ public class GameStart {
         System.out.println("You can interact with this game using text commands.");
         System.out.println("Write 'help' for some commands");
 
-
-        while(true){
+        while(running){
 
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine().toLowerCase(Locale.ROOT);
@@ -182,6 +183,7 @@ public class GameStart {
         }
     }
     public void exitGame(){
-        System.exit(0);
+        System.out.println("Exiting Game.");
+        running = false;
     }
 }
